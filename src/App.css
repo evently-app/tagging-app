@@ -28,14 +28,23 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .checkbox {
+  margin: 0 10px 0 10px;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
 }
 
+.button {
+  cursor: pointer;
+  margin-top: 20px;
+}
+
 p {
+  font-size: 12pt;
   margin: 0;
   padding: 0;
 }

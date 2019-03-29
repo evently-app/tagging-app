@@ -5,7 +5,17 @@ import "./App.css";
 import Checkbox from "./Checkbox";
 import Firestore from "./Firebase";
 
-const tags = ["Free", "Club", "Comedy", "Show"];
+const tags = [
+  "Parties",
+  "Show",
+  "Community",
+  "Learning",
+  "Professional",
+  "Quirky",
+  "Sports",
+  "Arts & Culture",
+  "Fitness & wellness"
+];
 
 class App extends Component {
   state = {
