@@ -6,15 +6,20 @@ import Checkbox from "./Checkbox";
 import Firestore from "./Firebase";
 
 const tags = [
-  "Parties",
-  "Show",
-  "Community",
-  "Learning",
-  "Professional",
-  "Quirky",
+  "Concerts",
   "Sports",
-  "Arts & Culture",
-  "Fitness & wellness"
+  "Shows",
+  "Comedy",
+  "Art",
+  "Nightlife",
+  "Free",
+  "Family",
+  "Professional",
+  "Lit",
+  "Active",
+  "Relaxing",
+  "Outdoor",
+  "Cultural"
 ];
 
 class App extends Component {
@@ -29,15 +34,15 @@ class App extends Component {
   }
 
   fetchDescription = () => {
-    Firestore.collection("descriptions")
+    Firestore.collection("unlabeled")
       .limit(1)
       .get()
       .then(snapshot => {
         if (!snapshot.empty) {
           const documentSnapshot = snapshot.docs[0];
 
-          const { description, title } = documentSnapshot.data();
-          this.setState({ description, title });
+          const { description, title, eventbrite_category } = documentSnapshot.data();
+          this.setState({ description, title, eventbrite_category });
 
           return documentSnapshot.ref.delete();
         } else {
@@ -55,7 +60,7 @@ class App extends Component {
       description
     };
 
-    Firestore.collection("tagged_descriptions")
+    Firestore.collection("labeled_descriptions")
       .add(data)
       .then(docRef => {
         this.setState({ selectedTags: [] }, () => this.fetchDescription());
@@ -76,12 +81,13 @@ class App extends Component {
   };
 
   render() {
-    const { description, title, selectedTags } = this.state;
+    const { description, title, eventbrite_category, selectedTags } = this.state;
     return (
       <div className="App">
         <header className="App-header">
           <p>title: {title}</p>
           <p>description: {description}</p>
+          <p>eventbrite_category: {eventbrite_category}</p>
           <div className="tags">
             {tags.map((tag, i) => (
               <Checkbox
