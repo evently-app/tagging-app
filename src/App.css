@@ -2,12 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -17,6 +11,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 15px;
 }
 
 .App-link {
@@ -47,4 +42,16 @@ p {
   font-size: 12pt;
   margin: 0;
   padding: 0;
+  text-align: left;
+  align-self: flex-start;
+}
+
+h1 {
+  font-size: 16pt;
+  align-self: flex-start;
+}
+
+h2 {
+  font-size: 14pt;
+  align-self: flex-start;
 }
