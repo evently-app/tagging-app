@@ -60,7 +60,7 @@ class App extends Component {
       description
     };
 
-    Firestore.collection("labeled_descriptions")
+    Firestore.collection("labeledDescriptions")
       .add(data)
       .then(docRef => {
         this.setState({ selectedTags: [] }, () => this.fetchDescription());
