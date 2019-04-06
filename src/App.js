@@ -41,7 +41,7 @@ class App extends Component {
           const { description, title, eventbrite_category } = documentSnapshot.data();
           this.setState({ description, title, eventbrite_category });
 
-          // return documentSnapshot.ref.delete();
+          return documentSnapshot.ref.delete();
         } else {
           console.log("No document corresponding to the query!");
           return null;
