@@ -5,19 +5,9 @@ import "./App.css";
 import Checkbox from "./Checkbox";
 import Firestore from "./Firebase";
 
-const categories = [
-  "Concerts",
-  "Sports",
-  "Shows",
-  "Comedy",
-  "Art",
-  "Nightlife",
-  "Free",
-  "Family",
-  "Professional"
-];
+const categories = ["Shows", "Sports", "Art", "Nightlife", "Free", "Family", "Professional"];
 
-const preferences = ["Lit", "Active", "Relaxing", "Outdoor", "Art"];
+const preferences = ["Lit", "Active", "Relaxing", "Cultural"];
 
 class App extends Component {
   state = {
