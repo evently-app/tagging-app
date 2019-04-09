@@ -13,7 +13,10 @@ class App extends Component {
   state = {
     title: "",
     description: "",
-    selectedTags: []
+    primaryCategory: "",
+    selectedCategories: [],
+    primaryPreference: "",
+    selectedPreferences: []
   };
 
   componentDidMount() {
@@ -40,9 +43,20 @@ class App extends Component {
   };
 
   submitTags = () => {
-    const { selectedTags, title, description } = this.state;
+    const {
+      primaryCategory,
+      selectedCategories,
+      primaryPreference,
+      selectedPreferences,
+      title,
+      description
+    } = this.state;
+
     const data = {
-      selectedTags,
+      primaryCategory,
+      selectedCategories: [...selectedCategories, primaryCategory],
+      primaryPreference,
+      selectedPreferences: [...selectedPreferences, primaryPreference],
       title,
       description
     };
@@ -50,25 +64,46 @@ class App extends Component {
     Firestore.collection("labeledDescriptions")
       .add(data)
       .then(docRef => {
-        this.setState({ selectedTags: [] }, () => this.fetchDescription());
+        this.setState(
+          {
+            primaryCategory: "",
+            selectedCategories: [],
+            primaryPreference: "",
+            selectedPreferences: []
+          },
+          () => this.fetchDescription()
+        );
       });
   };
 
-  handleCheckboxChange = label => {
-    const { selectedTags } = this.state;
+  handlePrimaryChange = (key, label) => {
+    this.setState({ [key]: label });
+  };
 
-    if (selectedTags.includes(label)) {
-      const index = selectedTags.indexOf(label);
+  handleCheckboxChange = (key, label) => {
+    const { [key]: selected } = this.state;
+
+    if (selected.includes(label)) {
+      const index = selected.indexOf(label);
       this.setState({
-        selectedTags: [...selectedTags.slice(0, index), ...selectedTags.slice(index + 1)]
+        [key]: [...selected.slice(0, index), ...selected.slice(index + 1)]
       });
     } else {
-      this.setState({ selectedTags: [...selectedTags, label] });
+      this.setState({ [key]: [...selected, label] });
     }
   };
 
   render() {
-    const { description, title, eventbrite_category, selectedTags } = this.state;
+    const {
+      description,
+      title,
+      eventbrite_category,
+      primaryCategory,
+      selectedCategories,
+      primaryPreference,
+      selectedPreferences
+    } = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
@@ -78,25 +113,47 @@ class App extends Component {
           <p>{description}</p>
           <h1>eventbrite_category:</h1>
           <p>{eventbrite_category}</p>
-          <h2>tags:</h2>
+          <h2>primary tag:</h2>
           <div className="tags">
             {categories.map((tag, i) => (
               <Checkbox
                 key={i}
-                handleCheckboxChange={this.handleCheckboxChange}
+                handleCheckboxChange={tag => this.handlePrimaryChange("primaryCategory", tag)}
                 label={tag}
-                selected={selectedTags.includes(tag)}
+                selected={primaryCategory === tag}
               />
             ))}
           </div>
-          <h2>preferences:</h2>
+          <h2>secondary tags:</h2>
+          <div className="tags">
+            {categories.map((tag, i) => (
+              <Checkbox
+                key={i}
+                handleCheckboxChange={tag => this.handleCheckboxChange("selectedCategories", tag)}
+                label={tag}
+                selected={selectedCategories.includes(tag) || primaryCategory === tag}
+              />
+            ))}
+          </div>
+          <h2>primary preference:</h2>
           <div className="tags">
             {preferences.map((tag, i) => (
               <Checkbox
                 key={i}
-                handleCheckboxChange={this.handleCheckboxChange}
+                handleCheckboxChange={tag => this.handlePrimaryChange("primaryPreference", tag)}
                 label={tag}
-                selected={selectedTags.includes(tag)}
+                selected={primaryPreference === tag}
+              />
+            ))}
+          </div>
+          <h2>secondary preferences:</h2>
+          <div className="tags">
+            {preferences.map((tag, i) => (
+              <Checkbox
+                key={i}
+                handleCheckboxChange={tag => this.handleCheckboxChange("selectedPreferences", tag)}
+                label={tag}
+                selected={selectedPreferences.includes(tag) || primaryPreference === tag}
               />
             ))}
           </div>
