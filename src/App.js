@@ -124,7 +124,7 @@ class App extends Component {
               />
             ))}
           </div>
-          <h2>secondary tags:</h2>
+          <h2>secondary tags (including the primary one):</h2>
           <div className="tags">
             {categories.map((tag, i) => (
               <Checkbox
@@ -146,7 +146,7 @@ class App extends Component {
               />
             ))}
           </div>
-          <h2>secondary preferences:</h2>
+          <h2>secondary preferences (including the primary one):</h2>
           <div className="tags">
             {preferences.map((tag, i) => (
               <Checkbox
