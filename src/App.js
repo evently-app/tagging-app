@@ -5,7 +5,7 @@ import "./App.css";
 import Checkbox from "./Checkbox";
 import Firestore from "./Firebase";
 
-const categories = ["Shows", "Sports", "Art", "Nightlife", "Free", "Family", "Professional"];
+const categories = ["Shows", "Sports", "Art", "Nightlife", "Free", "Family", "Professional", "Food&Drink"];
 
 const preferences = ["Lit", "Active", "Relaxing", "Cultural"];
 
